@@ -1,56 +1,32 @@
-# Historical ocean deoxygenation figures
+# Paper figures
 
-This repository contains Jupyter notebooks and publication-ready figures used to examine historical ocean deoxygenation, uncertainty from observational sampling and mapping, and emergent constraints on global oxygen trends. The analyses compare six gridded observational products and use Earth system model sampling experiments, including GFDL-ESM4, to evaluate how incomplete observations affect reconstructed trends.
+This folder contains the twelve PDFs used in the paper, their plotting code, and code needed to prepare intermediate data. The finished PDFs are in `Figures/`.
 
-## Repository contents
+| PDF in `Figures/` | Producer |
+| --- | --- |
+| `GFDL_ESM4_Ito2024_RF_sampling_sensitivity_full_depth_maps.pdf` | `GFDL_ESM4_sampling_sensitivity_full_depth_maps.ipynb` (also `make_gfdl_ito2024_rf_3x3.py`) |
+| `GFDL_ESM4_Ito2022_sampling_sensitivity_full_depth_maps.pdf` | `GFDL_ESM4_sampling_sensitivity_full_depth_maps.ipynb` (also `make_gfdl_ito2022_3x3.py`) |
+| `GFDL_ESM4_sampling_sensitivity_RF_consolidated.pdf` | `GFDL_ESM4_sampling_sensitivity_six_panel.ipynb` |
+| `sampling_measurement_counts_six_panel.pdf` | `sampling_measurement_counts_six_panel.ipynb` |
+| `oxygen_sampling_mapping_difference_trends_boxplots_1993_2021_supplement.pdf` | `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb` |
+| `oxygen_sampling_mapping_difference_trends_two_periods_boxplots.pdf` | `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb` |
+| `GFDL_ESM4_sampling_sensitivity_six_panel.pdf` | `GFDL_ESM4_sampling_sensitivity_six_panel.ipynb` |
+| `all_models_multimodel_mean_mapped_minus_full_deoxygenation_difference_maps_1965_2021.pdf` | `plot_olivelli_difference_maps.py` |
+| `deoxygenation_EC_six_regions.pdf` | `Deoxygenation_EC_six_regions.ipynb` |
+| `emergent_constraint_examples_and_individual_ec_1965_2021.pdf` | `Emergent_constraint_examples_and_individual_ec_1965_2021.ipynb` |
+| `Intro_figure_deoxygenation_three_depths.pdf` | `Intro_figure_deoxygenation_three_depths.ipynb` |
+| `gfdl_esm4_sampling_and_mapping_pdf_bias_by_period_1965_2021.pdf` | `GFDL_ESM4_sampling_and_mapping_pdf_bias_by_period_1965_2021.ipynb` |
 
-| Notebook | Purpose | Main output |
-| --- | --- | --- |
-| `Intro_figure_deoxygenation_three_depths.ipynb` | Summarizes oxygen changes, observational coverage, sampled-and-mapped model estimates, and emergent-constraint estimates for the full water column, upper 2000 m, and ocean below 2000 m. | `Figures/Intro_figure_deoxygenation_three_depths.pdf` |
-| `Emergent_constraint_examples_and_individual_ec_1965_2021.ipynb` | Shows representative emergent-constraint relationships and reconstruction-specific uncertainty distributions for 1965–2021. | `Figures/emergent_constraint_examples_and_individual_ec_1965_2021.pdf` |
-| `GFDL_ESM4_sampling_sensitivity_six_panel.ipynb` | Evaluates GFDL-ESM4 trend errors under uniform, random-global, and enhanced ship-track sampling for objective-interpolation, neural-network, and random-forest reconstructions. | `Figures/GFDL_ESM4_sampling_sensitivity_six_panel.pdf` |
-| `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb` | Compares sampling–mapping trend differences across six observational products for 1965–2021 and 1993–2021. | Two PDF variants in `Figures/` |
+## Rebuilding
 
-Rendered PDFs are tracked in [`Figures`](Figures/) so the results can be viewed without rerunning the analyses.
+Run from this folder. Analysis inputs live in the companion `Paper_figures`, `GFDL_ESM4_artificial_subsampling`, and `Cause_model_obs_differences` directories. Paths in the code reflect their current Princeton Research Computing locations. Typical dependencies are Jupyter, NumPy, pandas, Matplotlib, SciPy, xarray, netCDF4, and Cartopy.
 
-## Requirements
+The full-depth sampling notebook reads two generated NetCDF caches. Create them with `build_gfdl_full_depth_sampling_caches.py --method oi` and `--method rf`, or use `build_gfdl_full_depth_sampling_caches.slurm`. The standalone 3×3 plot scripts and their SLURM files offer another route to the same two PDFs.
 
-The notebooks use Python 3 and Jupyter, with the following principal packages:
+For the six-method mean map PDF and the two-period boxplot/map PDF, first run `build_multimethod_mean_full_column.py` (or its SLURM file). Then run `plot_olivelli_difference_maps.py` and `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb`. `render_multimethod_mean_boxplot.slurm` runs the boxplot/map cell. Intermediate NetCDF and NPZ files are generated as needed and are omitted from this folder's stored contents.
 
-- `numpy`
-- `pandas`
-- `matplotlib`
-- `scipy`
-- `xarray`
-- `netCDF4`
-- `cartopy`
-
-Only the packages needed by a particular notebook have to be installed. For example, the GFDL-ESM4 sampling notebook requires `xarray`, `netCDF4`, and `cartopy`, while the plotting notebooks built from pickle caches do not.
-
-## Data and portability
-
-The notebooks are plotting and analysis products rather than a self-contained data archive. They read precomputed pickle, CSV, and NetCDF inputs from the companion analysis directories `Paper_figures` and `GFDL_ESM4_artificial_subsampling`. These large source data and intermediate caches are not included in this repository.
-
-Several input locations are currently configured as absolute Princeton Research Computing paths near the beginning of each notebook. To run the notebooks elsewhere:
-
-1. Obtain or reproduce the required input caches and model-sampling outputs.
-2. Update `SOURCE_DIR`, `ROOT`, `PAPER`, `ARTIFICIAL`, and/or `PYTHON_FUNCTIONS` in the relevant setup cell.
-3. Preserve the expected filenames and directory structure, or update the individual path constants accordingly.
-
-The emergent-constraint notebook additionally imports `emergent_constraint_tests` from the external `Python_functions` directory.
-
-## Running the notebooks
-
-From the repository root, start Jupyter:
-
-```bash
-jupyter lab
-```
-
-Open a notebook and run its cells from top to bottom. Output directories are created by the notebooks where needed. Most final figures are written to `Figures/`; the GFDL-ESM4 workflow also writes intermediate metrics and a cached random-sampling trend map to its configured companion `Paper_figures` directory.
-
-Because some workflows process multi-dimensional model output, memory use and execution time vary substantially by notebook. The checked-in PDFs correspond to completed notebook runs and provide a reference for the expected result.
+The other notebooks write their listed PDFs when run from top to bottom. Some notebooks also write analysis caches to companion directories.
 
 ## License
 
-This project is distributed under the terms in [`LICENSE`](LICENSE).
+See [LICENSE](LICENSE).
