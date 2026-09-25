@@ -219,3 +219,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.joblogs/
+Figures/*.nc
+Figures/*.npz
+Figures/cache_six_method_maps_1965_2021/

@@ -1,6 +1,6 @@
 # Paper figures
 
-The repository contains Jupyter notebooks and the twelve PDFs used in the paper. Finished figures are in `Figures/`. The notebooks below generate them.
+The repository contains Jupyter notebooks and the twelve PDFs used in the paper, plus a standalone map of the six analysis regions. Finished figures are in `Figures/`. The notebooks below generate them.
 
 | PDF in `Figures/` | Notebook |
 | --- | --- |
@@ -16,10 +16,13 @@ The repository contains Jupyter notebooks and the twelve PDFs used in the paper.
 | `emergent_constraint_examples_and_individual_ec_1965_2021.pdf` | `Emergent_constraint_examples_and_individual_ec_1965_2021.ipynb` |
 | `Intro_figure_deoxygenation_three_depths.pdf` | `Intro_figure_deoxygenation_three_depths.ipynb` |
 | `gfdl_esm4_sampling_and_mapping_pdf_bias_by_period_1965_2021.pdf` | `GFDL_ESM4_sampling_and_mapping_pdf_bias_by_period_1965_2021.ipynb` |
+| `six_analysis_regions_map.pdf` | `six_analysis_regions_map.ipynb` |
 
 ## Rebuilding
 
 Open the notebooks from this directory and run their cells in order. `build_gfdl_full_depth_sampling_caches.ipynb` generates the intermediate OI and RF NetCDF files needed by `GFDL_ESM4_sampling_sensitivity_full_depth_maps.ipynb`. `build_multimethod_mean_full_column.ipynb` generates the intermediate data used by `plot_olivelli_difference_maps.ipynb` and `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb`. Those cache files are generated as needed and are not part of the stored figure set.
+
+Figure notebooks display their plots when run. Their saved notebook outputs also include a rendered view of each associated PDF so the figures are visible on GitHub. The final preview cells use Ghostscript (`gs`) to render the PDFs; the two cache-building notebooks have no figure output.
 
 Analysis inputs live in the companion `Paper_figures`, `GFDL_ESM4_artificial_subsampling`, and `Cause_model_obs_differences` directories. Paths in the notebooks reflect their current Princeton Research Computing locations. Dependencies include Jupyter, NumPy, pandas, Matplotlib, SciPy, xarray, netCDF4, and Cartopy.
 
