@@ -18,6 +18,10 @@ The repository contains Jupyter notebooks and the twelve PDFs used in the paper,
 | `gfdl_esm4_sampling_and_mapping_pdf_bias_by_period_1965_2021.pdf` | `GFDL_ESM4_sampling_and_mapping_pdf_bias_by_period_1965_2021.ipynb` |
 | `six_analysis_regions_map.pdf` | `six_analysis_regions_map.ipynb` |
 
+## Paper reference
+
+Dhruv Bhagtani, Laure Resplandy, Lijing Cheng, Juan Du, Christopher Roach, Arianna Olivelli, and Takamitsu Ito. *Model-derived constraints on observational estimates imply stronger historical ocean deoxygenation*. Submitted to *Global Biogeochemical Cycles*.
+
 ## Rebuilding
 
 Open the notebooks from this directory and run their cells in order. `build_gfdl_full_depth_sampling_caches.ipynb` generates the intermediate OI and RF NetCDF files needed by `GFDL_ESM4_sampling_sensitivity_full_depth_maps.ipynb`. `build_multimethod_mean_full_column.ipynb` generates the intermediate data used by `plot_olivelli_difference_maps.ipynb` and `Oxygen_sampling_mapping_difference_trends_two_periods.ipynb`. Those cache files are generated as needed and are not part of the stored figure set.
